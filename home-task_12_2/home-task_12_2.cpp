@@ -80,11 +80,64 @@ void minmaxElem(double arr[][4], int row, int col) {
 	cout << "Макс.эл. главной диагонали: " << max << endl;
 }
 void sortrowElem(double arr[][4], int row, int col) {
-
+	cout << "Сортировка элементов по возрастанию отдельно для каждой строки матрицы.\n";
+	double temp = 0;
+	for (int i = 0; i < row; i++) {
+		for (int j = 0; j < col - 1; j++) {
+			for (int k = 1; k < row - j; k++) {
+				if (arr[i][k] < arr[i][k - 1]) {
+					temp = arr[i][k - 1];
+					arr[i][k - 1] = arr[i][k];
+					arr[i][k] = temp;
+				}
+			}
+		}
+	}
 }
 //char
-
-
+void inicialization(char arr[][4], int row, int col) {
+	for (int i = 0; i < row; i++) {
+		for (int j = 0; j < col; j++) {
+			arr[i][j] = 97 + rand() % 26;
+		}
+	}
+}
+void showArr(char arr[][4], int row, int col) {
+	for (int i = 0; i < row; i++) {
+		for (int j = 0; j < col; j++) {
+			cout << arr[i][j] << " ";
+		}
+		cout << endl;
+	}
+	cout << endl;
+}
+void minmaxElem(char arr[][4], int row, int col) {
+	char min = arr[0][0];
+	char max = arr[0][0];
+	for (int i = 0, j = 0; i < row, j < col; i++, j++) {
+		if (arr[i][j] < min)
+			min = arr[i][j];
+		if (arr[i][j] > max)
+			max = arr[i][j];
+	}
+	cout << "Мин.эл. главной диагонали: " << min << endl;
+	cout << "Макс.эл. главной диагонали: " << max << endl;
+}
+void sortrowElem(char arr[][4], int row, int col) {
+	cout << "Сортировка элементов по возрастанию отдельно для каждой строки матрицы.\n";
+	char temp = 0;
+	for (int i = 0; i < row; i++) {
+		for (int j = 0; j < col - 1; j++) {
+			for (int k = 1; k < row - j; k++) {
+				if (arr[i][k] < arr[i][k - 1]) {
+					temp = arr[i][k - 1];
+					arr[i][k - 1] = arr[i][k];
+					arr[i][k] = temp;
+				}
+			}
+		}
+	}
+}
 
 //Задание 2. 
 int func(int a, int b) {
@@ -121,22 +174,26 @@ int main()
 	double arr2[row][col]{};
 	char arr3[row][col]{};
 
-	//int
-	/*inicialization(arr, row, col);
+	cout << "//////////////INT//////////////\n";
+	inicialization(arr, row, col);
 	showArr(arr, row, col);
 	minmaxElem(arr, row, col);
 	sortrowElem(arr, row, col);
-	showArr(arr, row, col);*/
+	showArr(arr, row, col);
 
-	//double
+	cout << "//////////////DOUBLE//////////////\n";
 	inicialization(arr2, row, col);
 	showArr(arr2, row, col);
 	minmaxElem(arr2, row, col);
-	/*sortrowElem(arr2, row, col);
-	showArr(arr2, row, col);*/
+	sortrowElem(arr2, row, col);
+	showArr(arr2, row, col);
 
-	//char
-
+	cout << "//////////////CHAR//////////////\n";
+	inicialization(arr3, row, col);
+	showArr(arr3, row, col);
+	minmaxElem(arr3, row, col);
+	sortrowElem(arr3, row, col);
+	showArr(arr3, row, col);
 	system("pause");
 	system("cls");
 
