@@ -148,8 +148,29 @@ int func(int a, int b) {
 }
 
 //Задание 3.
-
-
+void createArr(char arr[],int size) {
+	int num = rand() % 9999;
+	for (int i = size - 1; i >= 0; i--) {
+		arr[i] = '0' + num % 10;
+		num /= 10;
+	}
+}
+void printArr(char arr[], int size) {
+	for (int i = 0; i < size; i++){
+		cout << arr[i];
+	}
+	cout << endl;
+}
+bool samedigits(char arr[], int size) {
+	int count = 0;
+	for (int i = 0; i < size; i++) {
+		for (int j = i + 1; j < size; j++) {
+			if (arr[i] == arr[j])
+				count++;
+		}
+	}
+	return (count != 0);
+}
 
 int main()
 {
@@ -215,5 +236,16 @@ int main()
 	//отгадывания числа на экран необходимо вывести количество сделанных пользователем попыток.В программе
 	//необходимо использовать рекурсию.
 
-	//непонял.
+	const int N = 4;
+	char mech[N];
+	//инициализация ГСЧ
+	for (int i = 0; i < 15; i++){
+		rand();
+	}
+	//проверка без повторения чисел
+	do {
+		createArr(mech, N);
+	} while (samedigits(mech, N)); 
+	printArr(mech, N);
+
 }
