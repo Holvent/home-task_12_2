@@ -261,6 +261,8 @@ int main()
 	do {
 		cin >> usernum;
 		raz++;
+		bools = 0;
+		cows = 0;
 		if (usernum == 0) {
 			cout << "Игра окончена\n"; break;
 		}
@@ -274,8 +276,6 @@ int main()
 		if (samedigits(user, N)) {
 			cout << "Нельзя вводить одинаковые цифры\n"; continue;
 		}
-		bools = 0;
-		cows = 0;
 		for (int i = 0; i < N; i++){
 			if (mech[i] == user[i]) {
 				bools++;
@@ -289,6 +289,5 @@ int main()
 		cows -= bools;
 		cout << "Попытка №"<<raz << ": Быков " << bools << ";Коров" << cows << endl;
 	} while (bools!=4);
-
-
+	cout << "you win!)\n";
 }
