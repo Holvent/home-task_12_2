@@ -148,15 +148,17 @@ int func(int a, int b) {
 }
 
 //Задание 3.
-void createArr(char arr[],int size) {
-	int num = rand() % 9999;
+void move2arr(int value, char arr[], int size) {
 	for (int i = size - 1; i >= 0; i--) {
-		arr[i] = '0' + num % 10;
-		num /= 10;
+		arr[i] = '0' + value % 10;
+		value /= 10;
 	}
 }
+void createArr(char arr[], int size) {
+	move2arr(rand() % 9999, arr, size);
+}
 void printArr(char arr[], int size) {
-	for (int i = 0; i < size; i++){
+	for (int i = 0; i < size; i++) {
 		cout << arr[i];
 	}
 	cout << endl;
@@ -171,6 +173,7 @@ bool samedigits(char arr[], int size) {
 	}
 	return (count != 0);
 }
+
 
 int main()
 {
@@ -238,14 +241,54 @@ int main()
 
 	const int N = 4;
 	char mech[N];
+	char user[N];
+	int raz=0;
 	//инициализация ГСЧ
-	for (int i = 0; i < 15; i++){
+	for (int i = 0; i < 15; i++) {
 		rand();
 	}
 	//проверка без повторения чисел
 	do {
 		createArr(mech, N);
-	} while (samedigits(mech, N)); 
+	} while (samedigits(mech, N));
 	printArr(mech, N);
+
+	int usernum;
+	int bools, cows;
+
+	bool repeat = true;
+	cout << "Введите 4-х значное число\n";
+	do {
+		cin >> usernum;
+		raz++;
+		if (usernum == 0) {
+			cout << "Игра окончена\n"; break;
+		}
+		if (usernum < 123) {
+			cout << "слишком маленькое число\n"; continue;
+		}
+		if (usernum > 9876) {
+			cout << "слишком большое число\n"; continue;
+		}
+		move2arr(usernum, user, N);
+		if (samedigits(user, N)) {
+			cout << "Нельзя вводить одинаковые цифры\n"; continue;
+		}
+		bools = 0;
+		cows = 0;
+		for (int i = 0; i < N; i++){
+			if (mech[i] == user[i]) {
+				bools++;
+			}
+			for (int j = 0; j < N; j++){
+				if (mech[i] == user[j]) {
+					cows++;
+				}
+			}
+		}
+		cows -= bools;
+		cout << "Попытка №"<<raz << ": Быков " << bools << ";Коров" << cows << endl;
+	} while (bools!=4);
+
 
 }
