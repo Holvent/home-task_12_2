@@ -173,7 +173,31 @@ bool samedigits(char arr[], int size) {
 	}
 	return (count != 0);
 }
-
+void Logic(char mech[], char user[], int N,int raz) {
+	int bools, cows;
+	int usernum;
+	cout << "Введите 4-х значное число\n";
+	cin >> usernum;
+	raz++;
+	bools = 0;
+	cows = 0;
+	
+	move2arr(usernum, user, N);
+	for (int i = 0; i < N; i++) {
+		if (mech[i] == user[i]) {
+			bools++;
+		}
+		for (int j = 0; j < N; j++) {
+			if (mech[i] == user[j]) {
+				cows++;
+			}
+		}
+	}
+	cows -= bools;
+	cout << "Попытка №" << raz << ": Быков " << bools << ";Коров" << cows << endl;
+	if (bools != 4) Logic(mech, user, N,raz);
+	else cout << "Win";
+}
 
 int main()
 {
@@ -242,7 +266,7 @@ int main()
 	const int N = 4;
 	char mech[N];
 	char user[N];
-	int raz=0;
+
 	//инициализация ГСЧ
 	for (int i = 0; i < 15; i++) {
 		rand();
@@ -252,42 +276,6 @@ int main()
 		createArr(mech, N);
 	} while (samedigits(mech, N));
 	printArr(mech, N);
-
-	int usernum;
-	int bools, cows;
-
-	bool repeat = true;
-	cout << "Введите 4-х значное число\n";
-	do {
-		cin >> usernum;
-		raz++;
-		bools = 0;
-		cows = 0;
-		if (usernum == 0) {
-			cout << "Игра окончена\n"; break;
-		}
-		if (usernum < 123) {
-			cout << "слишком маленькое число\n"; continue;
-		}
-		if (usernum > 9876) {
-			cout << "слишком большое число\n"; continue;
-		}
-		move2arr(usernum, user, N);
-		if (samedigits(user, N)) {
-			cout << "Нельзя вводить одинаковые цифры\n"; continue;
-		}
-		for (int i = 0; i < N; i++){
-			if (mech[i] == user[i]) {
-				bools++;
-			}
-			for (int j = 0; j < N; j++){
-				if (mech[i] == user[j]) {
-					cows++;
-				}
-			}
-		}
-		cows -= bools;
-		cout << "Попытка №"<<raz << ": Быков " << bools << ";Коров" << cows << endl;
-	} while (bools!=4);
-	cout << "you win!)\n";
+	int raz = 0;
+	Logic(mech, user, N,raz);
 }
